@@ -13,6 +13,7 @@ public class FireBaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
 
+//Not called generally
 
     @Override
     public void onTokenRefresh() {
