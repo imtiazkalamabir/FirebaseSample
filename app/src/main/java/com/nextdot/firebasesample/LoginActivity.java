@@ -2,6 +2,7 @@ package com.nextdot.firebasesample;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
 
         preferenceManager = PreferenceManager.getInstance(LoginActivity.this);
         pd_one = new ProgressDialog(this);
+
+        Toast.makeText(this, "HEREEE", Toast.LENGTH_SHORT).show();
 
         userName = (EditText) findViewById(R.id.input_username);
         password = (EditText) findViewById(R.id.input_password);
@@ -161,10 +164,19 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (msg.equals("success")) {
 
+                            pd_one.dismiss();
+
                             ProfileBasicInfo user = response.body();
                             Log.e("log_in", " " + user.getToken() + " id=" + user.getUserProfile().getUserId());
 
                             preferenceManager.setProfileInfo(user);
+                            preferenceManager.setLogedIn(true);
+
+                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
 
 
 //                            String token = user.getToken();

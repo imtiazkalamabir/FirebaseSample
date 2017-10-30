@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
     private void logoutAPI(String deviceID) {
         Toast.makeText(MainActivity.this, "Wow, Im here", Toast.LENGTH_SHORT).show();
 
+        Log.d("USER_ID", userId);
+
+        Log.d("DEVICE_ID", deviceID);
 
         ApiService apiInterface = ApiClient.getApiInterface();
         Call<LogoutResponse> logoutResponseCall = apiInterface.logout(userId,deviceID);
@@ -97,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                             Log.e("logoutAPICALL", " MESSAGE" + " id=" + msg);
+
+                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 

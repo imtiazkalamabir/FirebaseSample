@@ -53,23 +53,25 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (preferenceManager.getLogedIn()) {
 
-                    if(preferenceManager.getProfileInfo().getUser().getPhone()!=null){
 
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                        Log.e("LoginMessage", preferenceManager.getLogedIn() + " message");
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
 
-                        finish();
+                        Log.e("SplashMessage", preferenceManager.getLogedIn() + " message");
 
-                    }else {
 
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-                        Log.e("LoginMessage", preferenceManager.getLogedIn() + " message");
 
-                        finish();
 
-                    }
+                }else {
+
+                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+
+                    startActivity(i);
+
+                    Log.e("LoginMessage", preferenceManager.getLogedIn() + " message");
+
+
 
                 }
 
