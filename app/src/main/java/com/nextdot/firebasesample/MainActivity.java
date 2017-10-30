@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 String deviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                         Settings.Secure.ANDROID_ID);
 
+
                 preferenceManager.clearAllData();
                 Intent intent1=new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent1);
@@ -58,58 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     // ------------  Starting the logoutAPI call from here, in order to remove the corresponding fcm registration token ------------ //
 
-                Toast.makeText(MainActivity.this, "Wow, Im here", Toast.LENGTH_SHORT).show();
 
+                //Enclose this with BroadcastReceiver in order to make the call successfully when interner is available
 
-
-                ApiService apiInterface = ApiClient.getApiInterface();
-                Call<LogoutResponse> logoutResponseCall = apiInterface.logout(userId,deviceID);
-                logoutResponseCall.enqueue(new Callback<LogoutResponse>() {
-                    @Override
-                    public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                String msg = response.body().getMsg();
-
-                                if (msg.equals("success")) {
-
-
-                                    Log.e("logoutAPICALL", " MESSAGE" + " id=" + msg);
-
-
-
-
-//                            String token = user.getToken();
-//                            String id = user.getUserProfile().getUserId() + "";
-//
-//                            loadProfileInfoWithRetrofit(token, id);
-
-
-                                } else {
-
-                                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<LogoutResponse> call, Throwable t) {
-
-
-                        // Do something to make a continuous call until success!
-
-                        Toast.makeText(getApplicationContext(), "Please check your internet connection...", Toast.LENGTH_SHORT).show();
-                        Log.e("log_in", t + "");
-
-                    }
-                });
+                logoutAPI(deviceID);
 
 
 
@@ -125,5 +78,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void logoutAPI(String deviceID) {
+        Toast.makeText(MainActivity.this, "Wow, Im here", Toast.LENGTH_SHORT).show();
+
+
+        ApiService apiInterface = ApiClient.getApiInterface();
+        Call<LogoutResponse> logoutResponseCall = apiInterface.logout(userId,deviceID);
+        logoutResponseCall.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String msg = response.body().getMsg();
+
+                        if (msg.equals("success")) {
+
+
+                            Log.e("logoutAPICALL", " MESSAGE" + " id=" + msg);
+
+
+
+
+//                            String token = user.getToken();
+//                            String id = user.getUserProfile().getUserId() + "";
+//
+//                            loadProfileInfoWithRetrofit(token, id);
+
+
+                        } else {
+
+                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+
+
+                // Do something to make a continuous call until success!
+
+                Toast.makeText(getApplicationContext(), "Please check your internet connection...", Toast.LENGTH_SHORT).show();
+                Log.e("log_in", t + "");
+
+            }
+        });
     }
 }

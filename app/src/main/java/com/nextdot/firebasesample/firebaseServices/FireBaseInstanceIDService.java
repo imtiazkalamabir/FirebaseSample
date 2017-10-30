@@ -51,10 +51,12 @@ public class FireBaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        // send network request
+        // send network request [will implement later]
 
         // if registration sent was successful, store a boolean that indicates whether the generated token has been sent to server
 //        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        sharedPreferences.edit().putBoolean(SENT_TOKEN_TO_SERVER, true).apply();
+
+
     }
 }
