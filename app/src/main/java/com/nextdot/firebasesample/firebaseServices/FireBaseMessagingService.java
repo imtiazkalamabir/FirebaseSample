@@ -74,6 +74,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         String activity_action = remoteMessage.getData().get("activity_action");
         String activity_id = remoteMessage.getData().get("activity_id");
 
+        Log.d("ACTIVITY_ID", "onMessageReceived: "+activity_id);
 
 
         //imageUri will contain URL of the image to be displayed with Notification
@@ -107,6 +108,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
             Intent intent = new Intent(this, AppointmentDetailsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("appointment_id", activityID);
+            Log.d("ACTIV_ID", "sendNotification: "+activityID);
             pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                     PendingIntent.FLAG_ONE_SHOT);
 

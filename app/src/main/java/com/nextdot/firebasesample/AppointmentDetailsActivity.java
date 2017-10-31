@@ -18,7 +18,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         tv_app_details = (TextView) findViewById(R.id.appointment_id);
 
 
-        String appointmentID = new Intent().getStringExtra("appointment_id");
+        String appointmentID = getIntent().getStringExtra("appointment_id");
 
         tv_app_details.setText(appointmentID);
 
