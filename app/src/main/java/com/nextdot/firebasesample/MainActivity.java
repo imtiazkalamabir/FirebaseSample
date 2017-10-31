@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     String userId;
 
-    Button buttonLogout;
+    Button btnLogout, btnNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceManager = PreferenceManager.getInstance(MainActivity.this);
 
-        buttonLogout = (Button) findViewById(R.id.button_logout);
+        btnLogout = (Button) findViewById(R.id.button_logout);
 
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
+        btnNotification = (Button) findViewById(R.id.button_Notification);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -65,14 +67,15 @@ public class MainActivity extends AppCompatActivity {
                 logoutAPI(deviceID);
 
 
+            }
+        });
 
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-//                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
-//Displaying token on logcat
-
-//                Log.d("TOKEN", "REFRESHED TOKEN:"+refreshedToken);
+                Intent intent2=new Intent(MainActivity.this,NotificationListActivity.class);
+                startActivity(intent2);
 
 
             }

@@ -16,14 +16,35 @@ public class NotificationItem {
     private int id;
     @SerializedName("time")
     private String time;
+    @SerializedName("img_url")
+    private String img_url;
+    @SerializedName("type")
+    private String type;
 
+    public String getImg_url() {
+        return img_url;
+    }
 
-    public NotificationItem(String title, String subtitle, int id, String time) {
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
+    public NotificationItem(String title, String subtitle, int id, String time, String img_url, String type) {
         this.title = title;
         this.subtitle = subtitle;
         this.id = id;
         this.time = time;
+        this.img_url = img_url;
+        this.type = type;
 
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -65,6 +86,8 @@ public class NotificationItem {
                 ", subtitle='" + subtitle + '\'' +
                 ", id='" + id + '\'' +
                 ", time='" + time + '\'' +
+                ", img_url='" + img_url + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 

@@ -4,6 +4,7 @@ import android.graphics.Movie;
 
 import com.nextdot.firebasesample.Utils.Constants;
 import com.nextdot.firebasesample.model.LogoutResponse;
+import com.nextdot.firebasesample.model.NotificationItem;
 import com.nextdot.firebasesample.model.ProfileBasicInfo;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public interface ApiService {
     Call<LogoutResponse> logout(@Query("username") String userID, @Query("device_id") String deviceID) ;
 
     @POST(Constants.notification_list)
-    Call<List<Movie>> getMovies(@Query("user_id") String userID);
+    Call<List<NotificationItem>> getNotification(@Query("user_id") String userID);
 
 }
