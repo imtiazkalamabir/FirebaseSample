@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by imtiazkalamabir on 10/26/17.
@@ -35,7 +36,7 @@ public interface ApiService {
     @POST(Constants.logout)
     Call<LogoutResponse> logout(@Query("username") String userID, @Query("device_id") String deviceID) ;
 
-    @POST(Constants.notification_list)
-    Call<List<NotificationItem>> getNotification(@Query("user_id") String userID);
+    @POST()
+    Call<List<NotificationItem>> getNotification(@Url String url);
 
 }

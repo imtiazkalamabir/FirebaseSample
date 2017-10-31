@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.nextdot.firebasesample.Utils.Constants;
 import com.nextdot.firebasesample.Utils.PreferenceManager;
 import com.nextdot.firebasesample.model.NotificationItem;
 import com.nextdot.firebasesample.network.ApiClient;
@@ -53,8 +54,10 @@ public class NotificationListActivity extends AppCompatActivity {
     }
 
     private void NotificationListAPICall() {
+
+        String url = ApiClient.BASE_URL+Constants.notification_list+userId;
         ApiService apiInterface = ApiClient.getApiInterface();
-        Call<List<NotificationItem>> call = apiInterface.getNotification(userId);
+        Call<List<NotificationItem>> call = apiInterface.getNotification(url);
 
         call.enqueue(new Callback<List<NotificationItem>>() {
             @Override
