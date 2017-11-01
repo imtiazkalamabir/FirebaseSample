@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Movie;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.bumptech.glide.Glide;
-import com.nextdot.firebasesample.model.NotificationItem;
 
+import com.nextdot.firebasesample.model.NotificationsItem;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by imtiazkalamabir on 10/30/17.
@@ -23,9 +28,9 @@ import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder>{
 
     Context context;
-    List<NotificationItem> notificationItemList;
+    List<NotificationsItem> notificationItemList;
 
-    public NotificationAdapter(Context context, List<NotificationItem> notificationItemList) {
+    public NotificationAdapter(Context context, List<NotificationsItem> notificationItemList) {
         this.context = context;
         this.notificationItemList = notificationItemList;
     }
@@ -42,11 +47,69 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         holder.tvTitle.setText(notificationItemList.get(position).getTitle());
         holder.tvSubtitle.setText(notificationItemList.get(position).getSubtitle());
-        holder.tvTime.setText(notificationItemList.get(position).getTime());
+
+        String time = convertToAgoFormat(notificationItemList.get(position).getCreatedAt());
+
+        Log.d("TimeCount", "onBindViewHolder: "+time);
+
+        holder.tvTime.setText(time);
 
         Glide.with(context)
-                .load("http://via.placeholder.com/300.png").into(holder.userImage);
+                .load(notificationItemList.get(position).getImageUrl()).into(holder.userImage);
 
+
+
+
+    }
+
+    private String convertToAgoFormat(String receivedTime) {
+
+        Log.d("ReceivedTime", "convertToAgoFormat: "+receivedTime);
+
+        String finalTime = "";
+
+        try
+        {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date past = format.parse(receivedTime);
+            Date now = new Date();
+            long seconds= TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime());
+            long minutes=TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime());
+            long hours=TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime());
+            long days=TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime());
+//
+//          System.out.println(TimeUnit.MILLISECONDS.toSeconds(now.getTime() - past.getTime()) + " milliseconds ago");
+//          System.out.println(TimeUnit.MILLISECONDS.toMinutes(now.getTime() - past.getTime()) + " minutes ago");
+//          System.out.println(TimeUnit.MILLISECONDS.toHours(now.getTime() - past.getTime()) + " hours ago");
+//          System.out.println(TimeUnit.MILLISECONDS.toDays(now.getTime() - past.getTime()) + " days ago");
+
+
+
+            if(seconds<60)
+            {
+                finalTime = seconds+" seconds ago";
+            }
+            else if(minutes<60)
+            {
+                finalTime = minutes+" minutes ago";
+            }
+            else if(hours<24)
+            {
+                finalTime = hours+" hours ago";
+            }
+            else
+            {
+                finalTime = days+" days ago";
+            }
+
+            return finalTime;
+        }
+        catch (Exception j){
+            j.printStackTrace();
+        }
+
+
+    return finalTime;
 
 
 
@@ -54,7 +117,21 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public int getItemCount() {
-        return notificationItemList.size();
+
+        int a ;
+
+        if(notificationItemList != null && !notificationItemList.isEmpty()) {
+
+            a = notificationItemList.size();
+        }
+        else {
+
+            a = 0;
+
+        }
+
+        return a;
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +152,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                     int pos = getAdapterPosition();
 
-                    NotificationItem item = notificationItemList.get(pos);
+                    NotificationsItem item = notificationItemList.get(pos);
 
                     String id = String.valueOf(item.getId());
 

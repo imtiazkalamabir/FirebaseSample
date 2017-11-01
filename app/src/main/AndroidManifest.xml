@@ -36,7 +36,7 @@
         <activity android:name=".LoginActivity" />
 
         <!-- <service android:name=".service.RegistrationIntentService" android:exported="false"/> -->
-        <activity android:name=".NotificationActivity" />
+        <activity android:name=".NotificationListActivity" />
         <activity android:name=".AppointmentDetailsActivity"></activity>
     </application>
 
